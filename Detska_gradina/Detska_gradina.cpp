@@ -1,5 +1,5 @@
 #include <iostream>
-#include <cstring>
+#include <string>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -15,9 +15,28 @@ struct USER
     string address;
     string childName;
     int childAge;
-
-
 };
+
+
+bool Admin(string UsernName, string pass)
+{
+    string admin = "admin";
+    string adminPass = "adminpass";
+    if (UsernName == admin and adminPass == pass)
+    {
+        cout << "Correct Password!" << endl;
+        return true;
+    }
+    else
+    {
+        cout << "Incorect Password! " << endl;
+        return false;
+    }
+}
+
+
+
+
 
 /*=========CRUD=========*/
 int getUserIndex(USER* users, int& userCount, int id) //Gets user's index by using the id of the user
@@ -64,18 +83,7 @@ USER getUser(USER* users, int& userCount, int id) // finds product by its index
 /*======================*/
 
 
-/*=====PRESENTATION LAYER=====*/
 
-void menu() // diplsays main menu of the program
-{
-    cout << "   MENU:" << endl;
-    cout << "1.Enter user" << endl;
-    cout << "2.View all users" << endl;
-    cout << "3.Edit user" << endl;
-    cout << "4.Delete user" << endl;
-    cout << "6.Exit" << endl;
-    cout << endl << "Your choice: ";
-}
 
 void enterUserMenu(USER* users, int& userCount, int& maxId) //dislays the menu that help the admin to enter user's data
 {
@@ -85,7 +93,7 @@ void enterUserMenu(USER* users, int& userCount, int& maxId) //dislays the menu t
     cout << "Enter the last name of the parent: "; cin >> user.lastName; cout << endl;
     cout << "Enter the username of the parent: "; cin >> user.username; cout << endl;
     cout << "Enter the password of the parent: "; cin >> user.password; cout << endl;
-    cout << "Enter the address of the parent"; cin >> user.address; cout << endl;
+    cout << "Enter the address of the parent:"; cin >> user.address; cout << endl;
     cout << "Enter the first name of the child: "; cin >> user.childName; cout << endl;
     cout << "Enter the age of the child: "; cin >> user.childAge; cout << endl;
 
@@ -193,11 +201,69 @@ void deleteUserMenu(USER* users, int& userCount, int& maxId) //displays a menu t
 }
 
 
+/*=====PRESENTATION LAYER=====*/
 
+bool MainMenu(USER* users, int& usersCount, int& id) // diplsays main menu of the program
+{
+    int choice;
+
+    cout << "   MENU:" << endl;
+    cout << "1.Enter user" << endl;
+    cout << "2.View all users" << endl;
+    cout << "3.Edit user" << endl;
+    cout << "4.Delete user" << endl;
+    cout << "5.Exit" << endl;
+    cout << endl << "Your choice: ";
+
+    cin >> choice;
+
+    switch (choice) {
+    case 1: {
+        enterUserMenu(users, usersCount, id);
+        break;
+    }
+    case 2: {
+        showUserMenu(users, usersCount, id);
+        break;
+    }
+    case 3: {
+        editEditMenu(users, usersCount);
+        break;
+    }
+    case 4: {
+        deleteUserMenu(users, usersCount, id);
+        break;
+    }
+
+    case 5: {
+        return false;
+    }
+
+    default:
+        break;
+
+    }
+}
 
 /*===================================================*/
 int main() // the main function of the project
 {
+    
+    int customerCount = 0;
+    int maxId = 1;
+    USER customers[100];
 
-
+    bool mainMenu = true;
+    string admin;
+    string adminpass;
+    getline(cin, admin);
+    getline(cin, adminpass);
+   
+    bool Admina = Admin(admin, adminpass);
+    if (Admina == true)
+    {
+        do {
+            mainMenu = MainMenu(customers, customerCount, maxId);
+        } while (mainMenu);
+    }
 }
