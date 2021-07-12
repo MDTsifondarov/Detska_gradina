@@ -3,7 +3,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
+
 using namespace std;
+
+
 
 struct USER
 {
@@ -18,21 +22,25 @@ struct USER
 };
 
 
+
+
 bool Admin(string UsernName, string pass)
 {
     string admin = "admin";
     string adminPass = "adminpass";
     if (UsernName == admin and adminPass == pass)
     {
-        cout << "Correct Password!" << endl;
+        cout << endl << "Correct Password!" << endl << endl;
         return true;
     }
     else
     {
-        cout << "Incorect Password! " << endl;
+        cout << endl << "Incorect Password! " << endl << endl;
         return false;
     }
 }
+
+
 
 
 
@@ -51,6 +59,8 @@ int getUserIndex(USER* users, int& userCount, int id) //Gets user's index by usi
     return -1;
 }
 
+
+
 void createUser(USER* users, int& userCount, int& maxId, USER newUsers) // adds new user to the main list (the array)
 {
     newUsers.id = maxId++;
@@ -58,15 +68,21 @@ void createUser(USER* users, int& userCount, int& maxId, USER newUsers) // adds 
     userCount++;
 }
 
+
+
 void updateUser(USER* users, int userCount, int id, USER newUsers) //edits the data of the user
 {
     int index = getUserIndex(users, userCount, id);
     users[index] = newUsers;
 }
 
+
+
 void deleteUser(USER* users, int& usersCount, int id) // "deletes" user
 {
     int index = getUserIndex(users, usersCount, id);
+
+
 
     for (int i = index; i < usersCount - 1; i++)
     {
@@ -75,12 +91,16 @@ void deleteUser(USER* users, int& usersCount, int id) // "deletes" user
     usersCount--;
 }
 
+
+
 USER getUser(USER* users, int& userCount, int id) // finds product by its index
 {
     int index = getUserIndex(users, userCount, id);
     return users[index];
 }
 /*======================*/
+
+
 
 
 
@@ -97,13 +117,17 @@ void enterUserMenu(USER* users, int& userCount, int& maxId) //dislays the menu t
     cout << "Enter the first name of the child: "; cin >> user.childName; cout << endl;
     cout << "Enter the age of the child: "; cin >> user.childAge; cout << endl;
 
+
+
     createUser(users, userCount, maxId, user);
-    cout << "You are ready! The user has been added to your list!" << endl;
+    cout << "You are ready! The user has been added to your list!" << endl << endl;
 }
+
+
 
 void showUserMenu(USER* users, int& userCount, int& maxId) // shows all current saved users' data to the admin
 {
-    cout << "List of the entered products:" << endl;
+    cout << "List of the entered users:" << endl << endl;
     for (int i = 0; i < userCount; i++)
     {
         cout << "Id: " << users[i].id << endl;
@@ -115,16 +139,30 @@ void showUserMenu(USER* users, int& userCount, int& maxId) // shows all current 
         cout << "Child name:" << users[i].childName << endl;
         cout << "Child age:" << users[i].childAge << endl;
     }
+    cout << endl;
+    if (userCount == 0)
+    {
+        cout << "The list is empty!" << endl;
+    }
+    cout << endl;
 }
+
+
 
 void editEditMenu(USER* users, int& userCount) //displays the menu that help the admin to edit data of a user
 {
     int userId;
 
+
+
     cout << "please enter the id of the user that you want to edit: ";
     cin >> userId;
 
+
+
     USER user = getUser(users, userCount, userId);
+
+
 
     cout << "1.Id" << endl;
     cout << "2.First name" << endl;
@@ -136,8 +174,12 @@ void editEditMenu(USER* users, int& userCount) //displays the menu that help the
     cout << "8.Child age" << endl;
     cout << "What do you want to edit: " << endl;
 
+
+
     int choose;
     cin >> choose;
+
+
 
     switch (choose)
     {
@@ -182,30 +224,46 @@ void editEditMenu(USER* users, int& userCount) //displays the menu that help the
         updateUser(users, userCount, userId, user);
         break;
 
+
+
     default:
         cout << "Invalid input!" << endl;
     }
-    cout << "You are ready! The user has been added to your list!" << endl;
+    cout << "You are ready! The user has been added to your list!" << endl << endl;
 }
+
+
 
 void deleteUserMenu(USER* users, int& userCount, int& maxId) //displays a menu that help the admin to delete a whole user
 {
     int userId;
 
+
+
     cout << "please enter the id of the user that you want to delete: ";
     cin >> userId;
 
+
+
     deleteUser(users, userCount, userId);
 
-    cout << "You are ready!The user has been removed from the list!" << endl;
+
+
+    cout << "You are ready!The user has been removed from the list!" << endl << endl;
 }
+
+
 
 
 /*=====PRESENTATION LAYER=====*/
 
+
+
 bool MainMenu(USER* users, int& usersCount, int& id) // diplsays main menu of the program
 {
     int choice;
+
+
 
     cout << "   MENU:" << endl;
     cout << "1.Enter user" << endl;
@@ -215,7 +273,11 @@ bool MainMenu(USER* users, int& usersCount, int& id) // diplsays main menu of th
     cout << "5.Exit" << endl;
     cout << endl << "Your choice: ";
 
+
+
     cin >> choice;
+
+
 
     switch (choice) {
     case 1: {
@@ -235,30 +297,46 @@ bool MainMenu(USER* users, int& usersCount, int& id) // diplsays main menu of th
         break;
     }
 
+
+
     case 5: {
         return false;
     }
 
+
+
     default:
         break;
+
+
 
     }
 }
 
+
+
 /*===================================================*/
 int main() // the main function of the project
 {
-    
+
+
+
     int customerCount = 0;
     int maxId = 1;
-    USER customers[100];
+    USER customers[50];
+
+
 
     bool mainMenu = true;
     string admin;
     string adminpass;
-    getline(cin, admin);
-    getline(cin, adminpass);
-   
+    cout << "Enter admin username: ";
+    getline(cin, admin); cout << endl;
+    cout << "Enter admin password: ";
+    getline(cin, adminpass); cout << endl;
+
+
+
     bool Admina = Admin(admin, adminpass);
     if (Admina == true)
     {
