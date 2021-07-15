@@ -22,31 +22,6 @@ struct USER
 };
 
 
-
-
-bool Admin(string UsernName, string pass)
-{
-    string admin = "admin";
-    string adminPass = "adminpass";
-    if (UsernName == admin and adminPass == pass)
-    {
-        cout << endl << "Correct Password!" << endl << endl;
-        return true;
-    }
-    else
-    {
-        cout << endl << "Incorect Password! " << endl << endl;
-        return false;
-    }
-}
-
-
-
-
-
-
-
-/*=========CRUD=========*/
 int getUserIndex(USER* users, int& userCount, int id) //Gets user's index by using the id of the user
 {
     for (int i = 0; i < userCount; i++)
@@ -98,10 +73,24 @@ USER getUser(USER* users, int& userCount, int id) // finds product by its index
     int index = getUserIndex(users, userCount, id);
     return users[index];
 }
-/*======================*/
 
 
 
+bool Admin(string UsernName, string pass)//checks for admin
+{
+    string admin = "admin";
+    string adminPass = "adminpass";
+    if (UsernName == admin and adminPass == pass)
+    {
+        cout << endl << "Correct Password!" << endl << endl;
+        return true;
+    }
+    else
+    {
+        cout << endl << "Incorect Password! " << endl << endl;
+        return false;
+    }
+}
 
 
 
@@ -315,7 +304,6 @@ bool MainMenu(USER* users, int& usersCount, int& id) // diplsays main menu of th
 
 
 
-/*===================================================*/
 int main() // the main function of the project
 {
 
